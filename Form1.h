@@ -6,7 +6,8 @@
 
 #include "NombreColumna.h"
 #include "PlaceHolder.h"
-#include "Header.h"
+
+#include "LeerPalabra.h"
 
 namespace CppCLRWinFormsProject {
 
@@ -55,15 +56,11 @@ namespace CppCLRWinFormsProject {
     private: System::Windows::Forms::Panel^ panel2;
     private: System::Windows::Forms::DataGridViewTextBoxColumn^ Estados;
     private: ArrayList^ nombreEstados = gcnew ArrayList();;
+    private: ArrayList^ nombreEstados_Aux = gcnew ArrayList();
     private: ArrayList^ estadosFinales = gcnew ArrayList();
     private: ArrayList^ simbolos = gcnew ArrayList();
-    private: List<Nodo^>^ listaEstados;
-    private: Nodo^ Nodo;
-
-
-
-
-
+    private: List<N_Nodo::Nodo^>^ listaEstados;
+    private: N_Nodo::Nodo^ Nodo;
 
     protected:
 
@@ -80,8 +77,8 @@ namespace CppCLRWinFormsProject {
         /// </summary>
         void InitializeComponent(void)
         {
-            System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-            System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+            System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+            System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
             this->label1 = (gcnew System::Windows::Forms::Label());
             this->label2 = (gcnew System::Windows::Forms::Label());
             this->txt_estadosFinales = (gcnew System::Windows::Forms::TextBox());
@@ -143,7 +140,7 @@ namespace CppCLRWinFormsProject {
             this->boton_transiciones->Name = L"boton_transiciones";
             this->boton_transiciones->Size = System::Drawing::Size(149, 37);
             this->boton_transiciones->TabIndex = 9;
-            this->boton_transiciones->Text = L"Ver Transiciones de Estados";
+            this->boton_transiciones->Text = L"Leer Palabras";
             this->boton_transiciones->UseVisualStyleBackColor = true;
             this->boton_transiciones->Click += gcnew System::EventHandler(this, &Form1::boton_Transiciones_Click);
             // 
@@ -182,24 +179,24 @@ namespace CppCLRWinFormsProject {
             this->dataGridView1->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
             this->dataGridView1->BackgroundColor = System::Drawing::Color::White;
             this->dataGridView1->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::None;
-            dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
-            dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::MenuHighlight;
-            dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11));
-            dataGridViewCellStyle1->ForeColor = System::Drawing::Color::White;
-            dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::HotTrack;
-            dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::GradientInactiveCaption;
-            dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-            this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleCenter;
+            dataGridViewCellStyle5->BackColor = System::Drawing::SystemColors::MenuHighlight;
+            dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11));
+            dataGridViewCellStyle5->ForeColor = System::Drawing::Color::White;
+            dataGridViewCellStyle5->SelectionBackColor = System::Drawing::SystemColors::HotTrack;
+            dataGridViewCellStyle5->SelectionForeColor = System::Drawing::SystemColors::GradientInactiveCaption;
+            dataGridViewCellStyle5->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+            this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this->dataGridView1->ColumnHeadersHeight = 25;
             this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Estados });
-            dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-            dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
-            dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-            dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
-            dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::InactiveCaption;
-            dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::ControlText;
-            dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
-            this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+            dataGridViewCellStyle6->BackColor = System::Drawing::SystemColors::Window;
+            dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+            dataGridViewCellStyle6->ForeColor = System::Drawing::SystemColors::ControlText;
+            dataGridViewCellStyle6->SelectionBackColor = System::Drawing::SystemColors::InactiveCaption;
+            dataGridViewCellStyle6->SelectionForeColor = System::Drawing::SystemColors::ControlText;
+            dataGridViewCellStyle6->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+            this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle6;
             this->dataGridView1->EnableHeadersVisualStyles = false;
             this->dataGridView1->Location = System::Drawing::Point(5, 17);
             this->dataGridView1->Name = L"dataGridView1";
@@ -210,7 +207,6 @@ namespace CppCLRWinFormsProject {
             this->dataGridView1->Tag = L"";
             this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Form1::dataGridView1_CellContentClick);
             this->dataGridView1->CellFormatting += gcnew System::Windows::Forms::DataGridViewCellFormattingEventHandler(this, &Form1::dataGridView1_CellFormatting);
-
             // 
             // Estados
             // 
@@ -240,7 +236,6 @@ namespace CppCLRWinFormsProject {
             this->boton_agregarFila->TabStop = false;
             this->boton_agregarFila->Text = L"Agregar  Fila";
             this->boton_agregarFila->UseVisualStyleBackColor = false;
-            this->boton_agregarFila->UseWaitCursor = true;
             this->boton_agregarFila->Click += gcnew System::EventHandler(this, &Form1::boton_agregarFila_Click);
             // 
             // boton_agregarColumna
@@ -254,7 +249,6 @@ namespace CppCLRWinFormsProject {
             this->boton_agregarColumna->TabIndex = 1;
             this->boton_agregarColumna->Text = L"Agregar Columna";
             this->boton_agregarColumna->UseVisualStyleBackColor = false;
-            this->boton_agregarColumna->UseWaitCursor = true;
             this->boton_agregarColumna->Click += gcnew System::EventHandler(this, &Form1::boton_agregarColumna_Click);
             // 
             // boton_quitarFila
@@ -269,7 +263,6 @@ namespace CppCLRWinFormsProject {
             this->boton_quitarFila->TabIndex = 2;
             this->boton_quitarFila->Text = L"Quitar Fila";
             this->boton_quitarFila->UseVisualStyleBackColor = false;
-            this->boton_quitarFila->UseWaitCursor = true;
             this->boton_quitarFila->Click += gcnew System::EventHandler(this, &Form1::boton_quitarFila_Click);
             // 
             // boton_quitarColumna
@@ -284,7 +277,6 @@ namespace CppCLRWinFormsProject {
             this->boton_quitarColumna->TabIndex = 3;
             this->boton_quitarColumna->Text = L"Quitar columna";
             this->boton_quitarColumna->UseVisualStyleBackColor = false;
-            this->boton_quitarColumna->UseWaitCursor = true;
             this->boton_quitarColumna->Click += gcnew System::EventHandler(this, &Form1::boton_quitarColumna_Click);
             // 
             // panel1
@@ -319,7 +311,7 @@ namespace CppCLRWinFormsProject {
             this->Controls->Add(this->panel2);
             this->Controls->Add(this->panel1);
             this->Name = L"Form1";
-            this->Text = L"Form1";
+            this->Text = L"Automata Finito Determinista (AFD)";
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
             this->flowLayoutPanel1->ResumeLayout(false);
             this->panel1->ResumeLayout(false);
@@ -342,20 +334,33 @@ namespace CppCLRWinFormsProject {
     {
         int rowLength = dataGridView1->Rows->Count;
         int columnLength = dataGridView1->ColumnCount;        
+
+        //Este for inicializa los nodos con su nombre y si es estado final o no
         listaEstados = gcnew List<N_Nodo::Nodo^>(rowLength);
         N_Nodo::Nodo^ nodo;
-        for (size_t i = 0; i < rowLength; i++)
+        for (int i = 0; i < rowLength; i++)
         {
-            int index = 0;
-            while (index < estadosFinales->Count && estadosFinales[index] != i)index++;
-            nodo = gcnew N_Nodo::Nodo(index < estadosFinales->Count, nombreEstados[i]->ToString());
-            listaEstados->Add(nodo);
-            for (size_t j = 1; j < columnLength; j++)
+            bool estadoFin = false;
+            for each (int final in estadosFinales)
+            {
+                if (final == i)
+                {
+                    estadoFin = true;
+                    break;
+                }
+            }
+            nodo = gcnew N_Nodo::Nodo(estadoFin, nombreEstados[i]->ToString());
+            listaEstados->Add(nodo);                  
+        }
+        //Crea transiciones para cada nodo
+        for (int i = 0; i < rowLength; i++)
+        {
+            for (int j = 1; j < columnLength; j++)
             {
                 String^ valor = (dataGridView1->Rows[i]->Cells[j]->Value != nullptr) ? dataGridView1->Rows[i]->Cells[j]->Value->ToString() : "";
-                if(valor->Length!=0)
+                if (valor->Length > 1)
                 {
-                    int indice = Int32::Parse(valor->Substring(1,valor->Length-1));
+                    int indice = Int32::Parse(valor->Substring(1, valor->Length - 1));
                     listaEstados[i]->agregarTransicion(simbolos[j - 1]->ToString(), listaEstados[indice]);
                 }
                 else
@@ -363,7 +368,6 @@ namespace CppCLRWinFormsProject {
                     listaEstados[i]->agregarTransicion(simbolos[j - 1]->ToString(), nullptr);
                 }
             }
-                    
         }
     }
 
@@ -377,8 +381,42 @@ namespace CppCLRWinFormsProject {
         return false;
     }      
     
-    private: bool verificaAFD(int estadoInicial) {
-        return false;
+    private: bool verificaAFD(N_Nodo::Nodo^ nodo, int i, int n) {
+        if (nodo != nullptr ) 
+        {
+            String^ nombreNodo = nodo->ID;
+            bool encontrado = false;
+            for (int j = 0; j < nombreEstados_Aux->Count; j++)
+            {
+                if (nombreEstados_Aux[j] == nombreNodo) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado)
+            {
+                nombreEstados_Aux->Add(nombreNodo);
+            }
+            i++;
+            if(nombreEstados_Aux->Count == nombreEstados->Count && i <= n)
+            {
+                return true;
+            }
+            if (i > n) return false;
+            for (int j = 0; j < simbolos->Count; j++)
+            {
+                bool a= verificaAFD(nodo->transiciones[simbolos[j]->ToString()], i, n);
+                if (a)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private: System::Void dataGridView1_CellFormatting(System::Object^ sender, System::Windows::Forms::DataGridViewCellFormattingEventArgs^ e)
@@ -417,9 +455,11 @@ namespace CppCLRWinFormsProject {
             MessageBox::Show("Debe haber almenos 1 fila.");
             return;
         }
+        simbolos->Clear();
         for (int i = 1; i < columnLength; i++)
         {
             String^ valor = dataGridView1->Columns[i]->HeaderText;
+
             simbolos->Add(valor);
         }
 
@@ -456,10 +496,41 @@ namespace CppCLRWinFormsProject {
             return;
         }
 
-        if (!verificaAFD(numero)) {
+        if (!verificaAFD(listaEstados[numero], 0, listaEstados->Count)) {
             MessageBox::Show(String::Format("Con el estado inicial Q{0} no se puede llegar a todos los Nodos.\n\nVerifique el estado inicial o cambie las transiciones.", numero));
+            listaEstados->Clear();
+            return;
         }
+        nombreEstados_Aux->Clear();
+        Nodo = listaEstados[numero];
+        Automata_Finito_Determinista::leerPalabra^ ventanaLeerPalabra = gcnew Automata_Finito_Determinista::leerPalabra(Nodo);
+        System::Windows::Forms::DialogResult respuesta = ventanaLeerPalabra->ShowDialog();
+        reiniciarTodo();
+    }
 
+    private: System::Void reiniciarTodo()
+    {
+        int rowLength = dataGridView1->Rows->Count;
+        int columnLength = dataGridView1->ColumnCount;
+        estadosFinales->Clear();
+        nombreEstados->Clear();
+        Nodo = nullptr;
+        listaEstados->Clear();
+        while (columnLength > 1)
+        {
+            dataGridView1->Columns->RemoveAt(columnLength - 1);
+            columnLength--;
+        }
+        while (rowLength > 0)
+        {
+            dataGridView1->Rows->RemoveAt(rowLength - 1);
+            rowLength--;
+        }
+        txt_estadoInicial->Text = "";
+        setPlaceHolder(txt_estadoInicial, "Ingrese el numero del estado inicial");
+        txt_estadosFinales->Text = "";
+        setPlaceHolder(txt_estadosFinales, "Ejemplo: 3,5,7");
+        return;
     }
 
     private: System::Void txt_estadoInicial_EnterLeave(System::Object^ sender, System::EventArgs^ e) 
@@ -511,7 +582,7 @@ namespace CppCLRWinFormsProject {
         {
             String^ nombreColumna = ventanaColumna->respuesta;
             int columnCount = dataGridView1->ColumnCount;
-            for (size_t i = 1; i < columnCount; i++)
+            for (int i = 1; i < columnCount; i++)
             {
                 String^ headerText = dataGridView1->Columns[i]->HeaderText;
                 if (nombreColumna == headerText)

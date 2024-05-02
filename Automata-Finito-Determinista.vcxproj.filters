@@ -64,7 +64,7 @@
     <ClCompile Include="Form1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyForm.cpp">
+    <ClCompile Include="leerPalabra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MyForm1.cpp">

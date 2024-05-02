@@ -7,6 +7,7 @@ namespace N_Nodo
 
     using namespace System;
     using namespace System::Collections::Generic;
+    using namespace System::Windows::Forms;
 
     // Definir la clase Nodo
     public ref class Nodo
@@ -19,9 +20,9 @@ namespace N_Nodo
         // Constructor que inicializa un nodo
         Nodo(bool estadoFinal, String^ id)
         {
-            esEstadoFinal = estadoFinal;
-            ID = id;
-            transiciones = gcnew Dictionary<String^, Nodo^>();
+            this->esEstadoFinal = estadoFinal;
+            this->ID = id;
+            this->transiciones = gcnew Dictionary<String^, Nodo^>();
         }
 
         // Método para añadir una transición
@@ -30,33 +31,40 @@ namespace N_Nodo
             transiciones->Add(palabra, nodoDestino);
         }
 
-        // Método para avanzar la secuencia
-        bool avanzarSecuencia(String^ palabra)
+        bool palabraAFD(String^ palabra, Nodo^ nodoActual)
         {
-            Nodo^ nodoActual = this;
-
-            // Iterar a través de la secuencia de caracteres
-            for (int i = 0; i < palabra->Length; i++)
+            // Verificar si la palabra es vacía
+            if (palabra->Length == 0)
             {
-                // Obtener el carácter actual como String^
-                String^ caracter = Convert::ToString(palabra[i]);
-
-                // Buscar la transición correspondiente en el nodo actual
-                Nodo^ nodoSiguiente = nullptr;
-                if (transiciones->TryGetValue(caracter, nodoSiguiente))
+                // Verificar si el nodo actual es final
+                if (nodoActual != nullptr)
                 {
-                    // Avanzar al siguiente nodo
-                    nodoActual = nodoSiguiente;
+                    return nodoActual->esEstadoFinal;
                 }
                 else
                 {
-                    // Si no se encuentra la transición, la secuencia no pertenece al lenguaje
                     return false;
                 }
             }
 
-            // Verificar si el nodo actual es un estado final
-            return nodoActual->esEstadoFinal;
+            // Obtener el primer carácter de la palabra
+            String^ caracter = palabra[0].ToString();
+
+            // Obtener el siguiente nodo a través de la transición del carácter
+            Nodo^ nodoSiguiente = nullptr;
+            if (nodoActual->transiciones->TryGetValue(caracter, nodoSiguiente))
+            {
+                // Recortar la palabra eliminando el primer carácter
+                String^ palabraRecortada = palabra->Substring(1);
+
+                // Llamar recursivamente a palabraAFD con el nodo siguiente y la palabra recortada
+                return palabraAFD(palabraRecortada, nodoSiguiente);
+            }
+            else
+            {
+                // No hay una transición para el carácter actual, la palabra no es aceptada
+                return false;
+            }
         }
     };
 }

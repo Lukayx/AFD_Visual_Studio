@@ -111,8 +111,8 @@ namespace Automata_Finito_Determinista {
 			this->textBox1->Text = L"Ejemplo: \'a\'";
 			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
 			this->textBox1->Enter += gcnew System::EventHandler(this, &NomColumna::textBox1_Enter);
-			this->textBox1->Leave += gcnew System::EventHandler(this, &NomColumna::textBox1_Leave);
 			this->textBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NomColumna::textBox1_KeyDown);
+			this->textBox1->Leave += gcnew System::EventHandler(this, &NomColumna::textBox1_Leave);
 			// 
 			// label4
 			// 
@@ -147,7 +147,7 @@ namespace Automata_Finito_Determinista {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Name = L"NomColumna";
-			this->Text = L"NomColumna";
+			this->Text = L"Ingresar Nombre Columna";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

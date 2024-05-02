@@ -155,7 +155,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="Form1.cpp" />
-    <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="leerPalabra.cpp" />
     <ClCompile Include="MyForm1.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
