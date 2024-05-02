@@ -17,6 +17,7 @@ namespace CppCLRWinFormsProject {
     using namespace System::Data;
     using namespace System::Drawing;
     using namespace PlaceHolder;
+    using namespace N_Nodo;
 
     /// <summary>
     /// Summary for Form1
@@ -341,16 +342,13 @@ namespace CppCLRWinFormsProject {
     {
         int rowLength = dataGridView1->Rows->Count;
         int columnLength = dataGridView1->ColumnCount;        
-        listaEstados = gcnew List<Nodo^>(rowLength);
+        listaEstados = gcnew List<N_Nodo::Nodo^>(rowLength);
+        N_Nodo::Nodo^ nodo;
         for (size_t i = 0; i < rowLength; i++)
         {
             int index = 0;
             while (index < estadosFinales->Count && estadosFinales[index] != i)index++;
-            Nodo^ nodo;
-            if (index < estadosFinales->Count)
-                nodo = gcnew Nodo(true, nombreEstados[i]->ToString());
-            else
-                nodo = gcnew Nodo(false, nombreEstados[i]->ToString());
+            nodo = gcnew N_Nodo::Nodo(index < estadosFinales->Count, nombreEstados[i]->ToString());
             listaEstados->Add(nodo);
             for (size_t j = 1; j < columnLength; j++)
             {
